@@ -1,0 +1,35 @@
+
+# config/sales_aggregation.yaml
+environment: dev
+
+mlflow:
+  enabled: true
+  tracking_uri: "http://mlflow-server:5000"
+  experiment_name: "Sales Aggregation"
+  run_name: "Aggregation_Run"
+
+notifications:
+  enabled: false
+
+retries:
+  max_attempts: 3
+  delay: 5
+
+spark:
+  master: "local[*]"
+  app_name: "Sales_Aggregation_ETL"
+  config:
+    spark.executor.memory: "2g"
+    spark.executor.cores: 2
+    spark.driver.memory: "4g"
+    spark.sql.shuffle.partitions: 10
+
+sources:
+  - name: sales_data
+    type: csv
+    path: "synthetic_sales_data.csv"
+  
+target:
+  type: csv
+  path: "aggregated_sales_data.csv"
+  mode: overwrite

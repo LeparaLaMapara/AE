@@ -1,0 +1,28 @@
+sources:
+  - name: source1
+    type: jdbc
+    jdbc_url: "jdbc:postgresql://localhost:5432/dbname1"
+    query: "SELECT * FROM table1"
+  - name: source2
+    type: jdbc
+    jdbc_url: "jdbc:mysql://localhost:3306/dbname2"
+    query: "SELECT * FROM table2"
+
+target:
+  type: jdbc
+  jdbc_url: "jdbc:postgresql://localhost:5432/dbname"
+  table_name: "output_table"
+  overwrite: true
+
+model:
+  name: "model1"
+  save_path: "/models"
+
+log:
+  level: "INFO"
+  file: "logs/etl.log"
+
+spark:
+  master: "local[*]"
+  app_name: "ETL_PySpark_App"
+  jars: "/path/to/jdbc/drivers"
